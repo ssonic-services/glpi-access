@@ -1,90 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Acesso GLPI</title>
+  <meta charset="UTF-8"> <!-- garante acentuação -->
+  <title>Acesso GLPI</title> <!-- título da aba -->
   <style>
     body {
-      margin: 0;
-      height: 100vh;
-      background-image: url('img/Supersonic-GLPI.jpg'); /* imagem de fundo */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      font-family: Arial, sans-serif;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      margin: 0; /* remove margem padrão */
+      height: 100vh; /* ocupa toda a tela */
+      background-image: url('img/Supersonic-GLPI.jpg'); /* fundo da página */
+      background-size: cover; /* cobre toda a tela */
+      background-position: center; /* centraliza a imagem */
+      background-repeat: no-repeat; /* não repete a imagem */
+      font-family: Arial, sans-serif; /* define a fonte */
+      position: relative; /* permite posicionar elementos absolutos dentro do body */
     }
 
-    /* Sobreposição levemente escura */
     body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.2); /* menos escura, imagem mais clara */
-      z-index: 1;
-    }
-
-    /* Container central */
-    .container {
-      display: flex;
-      align-items: center; /* alinha verticalmente texto e botão */
-      gap: 20px; /* espaço entre o texto e o botão */
-      z-index: 2; /* acima da sobreposição */
-      position: relative;
-    }
-
-    .text {
-      color: white;
-      font-size: 48px;
-      font-weight: bold;
-    }
-
-    .subtext {
-      color: #62c6f0; /* azul da palavra Intelligence */
-      font-size: 32px;
-      font-weight: normal;
-      margin-left: 10px;
+      content: ""; /* cria camada extra */
+      position: absolute; /* ocupa a tela toda */
+      top: 0; left: 0; /* canto superior esquerdo */
+      width: 100%; height: 100%; /* ocupa tudo */
+      background: rgba(0,0,0,0.2); /* escurece a imagem */
+      z-index: 1; /* fica acima do fundo */
     }
 
     a {
-      padding: 12px 25px;
-      background: rgba(37, 99, 235, 0.9);
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 18px;
-      transition: background 0.3s;
+      position: absolute; /* permite colocar em qualquer ponto da tela */
+      top: 50%; /* ajusta a altura (mude até alinhar com a palavra) */
+      left: 60%; /* ajusta a posição horizontal (mude até alinhar certinho) */
+      transform: translate(-50%, -50%); /* centraliza no ponto definido */
+      padding: 12px 25px; /* tamanho interno do botão */
+      background: rgba(37, 99, 235, 0.9); /* cor azul do botão */
+      color: white; /* cor do texto */
+      text-decoration: none; /* remove sublinhado */
+      border-radius: 8px; /* cantos arredondados */
+      font-size: 18px; /* tamanho da fonte */
+      z-index: 2; /* coloca o botão acima do overlay */
+      transition: background 0.3s; /* efeito no hover */
     }
 
     a:hover {
-      background: rgba(29, 78, 216, 1);
-    }
-
-    @media (max-width: 800px) {
-      .container {
-        flex-direction: column; /* empilha em telas pequenas */
-        text-align: center;
-      }
-
-      .text {
-        font-size: 36px;
-      }
-
-      .subtext {
-        font-size: 24px;
-        margin-left: 0;
-      }
+      background: rgba(29, 78, 216, 1); /* azul mais escuro no hover */
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="text">SUPersonic<span class="subtext">Intelligence</span></div>
-    <a href="https://hunting-mountains-tiles-desperate.trycloudflare.com/glpi/index.php" target="_blank">Acessar GLPI</a>
-  </div>
+  <!-- botão único posicionado manualmente -->
+  <a href="https://hunting-mountains-tiles-desperate.trycloudflare.com/glpi/index.php" target="_blank">
+    Acessar GLPI
+  </a>
 </body>
 </html>
