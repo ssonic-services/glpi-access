@@ -1,63 +1,82 @@
-<!DOCTYPE html> <!-- Declara que este é um documento HTML5 -->
-<html lang="pt-br"> <!-- Início do documento HTML com idioma português -->
-
+<!DOCTYPE html>
+<html lang="pt-br"> <!-- define o idioma da página como português -->
 <head>
-  <meta charset="UTF-8"> <!-- Define codificação UTF-8 para acentos -->
-  <title>Acesso GLPI</title> <!-- Título da aba do navegador -->
-
+  <meta charset="UTF-8"> <!-- garante que acentos funcionem -->
+  <title>Acesso GLPI</title> <!-- título que aparece na aba do navegador -->
   <style>
-    /* Corpo da página */
     body {
-      display: flex; /* Usando Flexbox para organizar elementos */
-      justify-content: center; /* Centraliza horizontalmente */
-      align-items: center; /* Centraliza verticalmente */
-      height: 100vh; /* Altura da tela inteira */
-      margin: 0; /* Remove margens padrão do navegador */
-      background-image: url('img/Supersonic-GLPI.jpg'); /* Imagem de fundo */
-      background-size: cover; /* Faz a imagem cobrir toda a tela */
-      background-position: center; /* Centraliza a imagem */
-      background-repeat: no-repeat; /* Evita repetição da imagem */
-      font-family: Arial, sans-serif; /* Define a fonte do site */
-      position: relative; /* Necessário para a sobreposição e z-index */
+      margin: 0; /* remove margens padrão da página */
+      height: 100vh; /* faz o body ocupar a altura toda da tela */
+      background-image: url('img/Supersonic-GLPI.jpg'); /* imagem de fundo */
+      background-size: cover; /* faz a imagem cobrir toda a tela */
+      background-position: center; /* centraliza a imagem */
+      background-repeat: no-repeat; /* não repete a imagem */
+      font-family: Arial, sans-serif; /* define a fonte do texto */
+      position: relative; /* torna o body um container relativo para overlay */
+      display: flex; /* usa flexbox para centralizar o conteúdo */
+      justify-content: center; /* centraliza horizontalmente */
+      align-items: center; /* centraliza verticalmente */
     }
 
-    /* Sobreposição escura da imagem de fundo */
     body::before {
-      content: ""; /* Necessário para criar o pseudo-elemento */
-      position: absolute; /* Posiciona sobre o body */
-      top: 0; left: 0; /* Início no canto superior esquerdo */
-      width: 100%; height: 100%; /* Ocupa toda a tela */
-      background: rgba(0,0,0,0.0); /* Fundo preto semitransparente */
-      z-index: 1; /* Fica abaixo do botão */
+      content: ""; /* cria um elemento vazio (overlay) */
+      position: absolute; /* ocupa posição absoluta em relação ao body */
+      top: 0; left: 0; /* começa no canto superior esquerdo */
+      width: 100%; height: 100%; /* ocupa toda a tela */
+      background: rgba(0,0,0,0.2); /* adiciona um filtro preto transparente (escurece fundo) */
+      z-index: 1; /* garante que o overlay fique acima do fundo mas atrás do conteúdo */
     }
 
-    /* Estilo do botão */
+    .container {
+      position: relative; /* cria referência para os elementos internos */
+      z-index: 2; /* coloca o conteúdo acima do overlay */
+    }
+
+    .text {
+      color: white; /* cor do texto principal */
+      font-size: 48px; /* tamanho da fonte grande */
+      font-weight: bold; /* deixa o texto em negrito */
+      display: inline-block; /* mantém o texto em bloco ajustável */
+      position: relative; /* referência para o botão absoluto */
+    }
+
+    .subtext {
+      color: #62c6f0; /* cor azul clara para o subtexto */
+      font-size: 32px; /* tamanho menor que o título */
+      font-weight: normal; /* não é negrito */
+      margin-left: 10px; /* espaço entre "SUPersonic" e "Intelligence" */
+    }
+
     a {
-      padding: 15px 30px; /* Espaçamento interno vertical e horizontal */
-      background: rgba(37, 99, 235, 0.9); /* Fundo azul semitransparente */
-      color: white; /* Cor do texto */
-      text-decoration: none; /* Remove sublinhado */
-      border-radius: 8px; /* Bordas arredondadas */
-      font-size: 18px; /* Tamanho da fonte */
-      transition: background 0.3s; /* Animação ao passar o mouse */
-      z-index: 2; /* Fica acima da sobreposição */
-      position: relative; /* Permite z-index funcionar */
+      position: absolute; /* posiciona o botão em relação ao .text */
+      top: 50%; /* move o botão para o meio vertical */
+      transform: translateY(-50%); /* corrige alinhamento vertical */
+      left: 100%; /* posiciona o botão logo após o texto */
+      margin-left: 20px; /* espaço entre o texto e o botão */
+      padding: 12px 25px; /* espaço interno do botão */
+      background: rgba(37, 99, 235, 0.9); /* cor azul do botão */
+      color: white; /* cor do texto do botão */
+      text-decoration: none; /* remove o sublinhado do link */
+      border-radius: 8px; /* cantos arredondados */
+      font-size: 18px; /* tamanho da fonte do botão */
+      transition: background 0.3s; /* animação suave na cor ao passar o mouse */
     }
 
-    /* Efeito hover do botão */
     a:hover {
-      background: rgba(29, 78, 216, 1); /* Azul mais escuro ao passar o mouse */
-    }
-
-    /* Responsivo para celulares */
-    @media (max-width: 600px) {
-      a {
-        padding: 12px 20px; /* Reduz tamanho do botão */
-        font-size: 16px; /* Reduz fonte */
-      }
+      background: rgba(29, 78, 216, 1); /* cor azul mais escura no hover */
     }
   </style>
 </head>
+<body>
+  <div class="container"> <!-- container principal -->
+    <div class="text"> <!-- título -->
+      SUPersonic <span class="subtext">Intelligence</span> <!-- texto azul menor -->
+      <a href="https://hunting-mountains-tiles-desperate.trycloudflare.com/glpi/index.php" target="_blank">Acessar GLPI</a> <!-- botão -->
+    </div>
+  </div>
+</body>
+</html>
+
 
 <body>
   <!-- Botão de acesso ao GLPI -->
