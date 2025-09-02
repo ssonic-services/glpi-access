@@ -1,87 +1,90 @@
 <!DOCTYPE html>
-<html lang="pt-br"> <!-- define o idioma da página como português -->
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8"> <!-- garante que acentos funcionem -->
-  <title>Acesso GLPI</title> <!-- título que aparece na aba do navegador -->
+  <meta charset="UTF-8">
+  <title>Acesso GLPI</title>
   <style>
     body {
-      margin: 0; /* remove margens padrão da página */
-      height: 100vh; /* faz o body ocupar a altura toda da tela */
+      margin: 0;
+      height: 100vh;
       background-image: url('img/Supersonic-GLPI.jpg'); /* imagem de fundo */
-      background-size: cover; /* faz a imagem cobrir toda a tela */
-      background-position: center; /* centraliza a imagem */
-      background-repeat: no-repeat; /* não repete a imagem */
-      font-family: Arial, sans-serif; /* define a fonte do texto */
-      position: relative; /* torna o body um container relativo para overlay */
-      display: flex; /* usa flexbox para centralizar o conteúdo */
-      justify-content: center; /* centraliza horizontalmente */
-      align-items: center; /* centraliza verticalmente */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
+    /* Sobreposição levemente escura */
     body::before {
-      content: ""; /* cria um elemento vazio (overlay) */
-      position: absolute; /* ocupa posição absoluta em relação ao body */
-      top: 0; left: 0; /* começa no canto superior esquerdo */
-      width: 100%; height: 100%; /* ocupa toda a tela */
-      background: rgba(0,0,0,0.2); /* adiciona um filtro preto transparente (escurece fundo) */
-      z-index: 1; /* garante que o overlay fique acima do fundo mas atrás do conteúdo */
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.2); /* menos escura, imagem mais clara */
+      z-index: 1;
     }
 
+    /* Container central */
     .container {
-      position: relative; /* cria referência para os elementos internos */
-      z-index: 2; /* coloca o conteúdo acima do overlay */
+      display: flex;
+      align-items: center; /* alinha verticalmente texto e botão */
+      gap: 20px; /* espaço entre o texto e o botão */
+      z-index: 2; /* acima da sobreposição */
+      position: relative;
     }
 
     .text {
-      color: white; /* cor do texto principal */
-      font-size: 48px; /* tamanho da fonte grande */
-      font-weight: bold; /* deixa o texto em negrito */
-      display: inline-block; /* mantém o texto em bloco ajustável */
-      position: relative; /* referência para o botão absoluto */
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
     }
 
     .subtext {
-      color: #62c6f0; /* cor azul clara para o subtexto */
-      font-size: 32px; /* tamanho menor que o título */
-      font-weight: normal; /* não é negrito */
-      margin-left: 10px; /* espaço entre "SUPersonic" e "Intelligence" */
+      color: #62c6f0; /* azul da palavra Intelligence */
+      font-size: 32px;
+      font-weight: normal;
+      margin-left: 10px;
     }
 
     a {
-      position: absolute; /* posiciona o botão em relação ao .text */
-      top: 50%; /* move o botão para o meio vertical */
-      transform: translateY(-50%); /* corrige alinhamento vertical */
-      left: 100%; /* posiciona o botão logo após o texto */
-      margin-left: 20px; /* espaço entre o texto e o botão */
-      padding: 12px 25px; /* espaço interno do botão */
-      background: rgba(37, 99, 235, 0.9); /* cor azul do botão */
-      color: white; /* cor do texto do botão */
-      text-decoration: none; /* remove o sublinhado do link */
-      border-radius: 8px; /* cantos arredondados */
-      font-size: 18px; /* tamanho da fonte do botão */
-      transition: background 0.3s; /* animação suave na cor ao passar o mouse */
+      padding: 12px 25px;
+      background: rgba(37, 99, 235, 0.9);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 18px;
+      transition: background 0.3s;
     }
 
     a:hover {
-      background: rgba(29, 78, 216, 1); /* cor azul mais escura no hover */
+      background: rgba(29, 78, 216, 1);
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        flex-direction: column; /* empilha em telas pequenas */
+        text-align: center;
+      }
+
+      .text {
+        font-size: 36px;
+      }
+
+      .subtext {
+        font-size: 24px;
+        margin-left: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container"> <!-- container principal -->
-    <div class="text"> <!-- título -->
-      SUPersonic <span class="subtext">Intelligence</span> <!-- texto azul menor -->
-      <a href="https://hunting-mountains-tiles-desperate.trycloudflare.com/glpi/index.php" target="_blank">Acessar GLPI</a> <!-- botão -->
-    </div>
+  <div class="container">
+    <div class="text">SUPersonic<span class="subtext">Intelligence</span></div>
+    <a href="https://hunting-mountains-tiles-desperate.trycloudflare.com/glpi/index.php" target="_blank">Acessar GLPI</a>
   </div>
-</body>
-</html>
-
-
-<body>
-  <!-- Botão de acesso ao GLPI -->
-  <a href="https://hunting-mountains-tiles-desperate.trycloudflare.com/glpi/index.php" target="_blank">
-    Acessar GLPI
-  </a>
 </body>
 </html>
