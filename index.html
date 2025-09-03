@@ -1,92 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8"> <!-- garante acentuação -->
-  <title>Acesso GLPI</title> <!-- título da aba -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundo Esticado com Botão</title>
   <style>
-    * {
-      margin: 0; /* remove margens padrão */
+    html, body {
+      margin: 0;
       padding: 0;
-      box-sizing: border-box; /* inclui bordas no cálculo do tamanho */
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      font-family: Arial, sans-serif;
     }
 
-    .container {
-      position: relative; /* referência para posicionar o botão */
-      width: 100vw; /* ocupa toda a largura da tela */
-      height: 100vh; /* ocupa toda a altura da tela */
-      overflow: hidden; /* evita rolagem extra */
-    }
-
-    .bg-img {
-      width: 100%;   /* ocupa toda a largura */
-      height: 100%;  /* ocupa toda a altura */
-      object-fit: cover; /* cobre a tela sem distorcer */
-      position: relative; /* fixa a imagem dentro do container */
+    /* Imagem de fundo esticada */
+    body::before {
+      content: "";
+      position: absolute;
       top: 0;
       left: 0;
-      z-index: 0; /* fica atrás de tudo */
+      width: 100%;
+      height: 100%;
+      background-image: url('https://i.imgur.com/V43vf3e.jpeg');
+      background-size: 100% 100%; /* estica para preencher toda a tela */
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: -1; /* deixa atrás do botão */
     }
 
-    .container::before {
-      content: ""; /* cria overlay */
-      position: absolute; /* ocupa todo o container */
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.1); /* camada transparente escura */
-      z-index: 1; /* acima da imagem, mas atrás do botão */
+    /* Botão posicionado por porcentagem */
+    .btn {
+      position: absolute;
+      top: 83%;   /* distância do topo em porcentagem da tela */
+      left: 36%;  /* distância da esquerda em porcentagem da tela */
+      transform: translate(-50%, -50%); /* centraliza o botão no ponto definido */
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      background-color: #111827;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
     }
 
-    .btn-glpi {
-      position: absolute; /* fixa o botão dentro do container */
-      top: 80%; /* posição vertical (ajuste se precisar) */
-      left: 40%; /* posição horizontal */
-      transform: translate(-50%, -50%); /* centraliza no ponto definido */
-      padding: 12px 25px; /* espaço interno do botão */
-      background: rgba(37, 99, 235, 0.9); /* cor azul */
-      color: white; /* texto branco */
-      text-decoration: none; /* remove sublinhado */
-      border-radius: 8px; /* cantos arredondados */
-      font-size: 18px; /* tamanho da fonte */
-      z-index: 2; /* fica acima da imagem e do overlay */
-      transition: background 0.3s; /* efeito hover */
+    .btn:hover {
+      transform: translate(-50%, -50%) translateY(-3px);
+      opacity: 0.9;
     }
 
-    .btn-glpi:hover {
-      background: rgba(29, 78, 216, 1); /* azul mais escuro ao passar o mouse */
-    }
-
-    /* Responsividade para tablets */
-    @media (max-width: 1024px) {
-      .btn-glpi {
-        top: 75%; 
-        left: 55%;
-        font-size: 16px;
-        padding: 10px 20px;
-      }
-    }
-
-    /* Responsividade para celulares */
-    @media (max-width: 600px) {
-      .btn-glpi {
-        top: 80%;
-        left: 50%;
-        font-size: 14px;
-        padding: 8px 18px;
-      }
+    .btn:active {
+      transform: translate(-50%, -50%) translateY(0);
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- imagem responsiva -->
-    <img src="img/Supersonic-GLPI.jpg" alt="Fundo GLPI" class="bg-img">
-
-    <!-- botão fixo -->
-    <a href="https://broadcast-adware-daughters-sa.trycloudflare.com/glpi" 
-       target="_blank" 
-       class="btn-glpi">
-      Acessar GLPI
-    </a>
-  </div>
+  <a href="https://broadcast-adware-daughters-sa.trycloudflare.com/glpi" class="btn">Acessar GLPI</button>
 </body>
 </html>
