@@ -11,28 +11,34 @@
     }
 
     .container {
-      position: relative; /* referência para o botão absoluto */
+      position: relative; /* referência para posicionar o botão */
       width: 100vw; /* ocupa toda a largura da tela */
       height: 100vh; /* ocupa toda a altura da tela */
-      background-image: url('img/Supersonic-GLPI.jpg'); /* imagem de fundo */
-      background-size: cover; /* cobre todo o container */
-      background-position: center; /* centraliza a imagem */
-      background-repeat: no-repeat; /* não repete */
-      overflow: hidden; /* garante que nada saia do container */
+      overflow: hidden; /* evita rolagem extra */
+    }
+
+    .bg-img {
+      width: 100%;   /* ocupa toda a largura */
+      height: 100%;  /* ocupa toda a altura */
+      object-fit: cover; /* cobre a tela sem distorcer */
+      position: absolute; /* fixa a imagem dentro do container */
+      top: 0;
+      left: 0;
+      z-index: 0; /* fica atrás de tudo */
     }
 
     .container::before {
       content: ""; /* cria overlay */
-      position: absolute; /* ocupa a tela toda dentro do container */
-      top: 0; left: 0; /* canto superior esquerdo */
-      width: 100%; height: 100%; /* ocupa tudo */
-      background: rgba(0,0,0,0.1); /* camada de escurecimento */
-      z-index: 1; /* fica sobre a imagem mas atrás do botão */
+      position: absolute; /* ocupa todo o container */
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.1); /* camada transparente escura */
+      z-index: 1; /* acima da imagem, mas atrás do botão */
     }
 
     .btn-glpi {
-      position: absolute; /* posição absoluta em relação ao container */
-      top: 80%; /* posição vertical (ajuste conforme a imagem) */
+      position: absolute; /* fixa o botão dentro do container */
+      top: 80%; /* posição vertical (ajuste se precisar) */
       left: 40%; /* posição horizontal */
       transform: translate(-50%, -50%); /* centraliza no ponto definido */
       padding: 12px 25px; /* espaço interno do botão */
@@ -41,39 +47,41 @@
       text-decoration: none; /* remove sublinhado */
       border-radius: 8px; /* cantos arredondados */
       font-size: 18px; /* tamanho da fonte */
-      z-index: 2; /* acima do overlay */
-      transition: background 0.3s; /* efeito ao passar o mouse */
+      z-index: 2; /* fica acima da imagem e do overlay */
+      transition: background 0.3s; /* efeito hover */
     }
 
     .btn-glpi:hover {
-      background: rgba(29, 78, 216, 1); /* azul mais escuro no hover */
+      background: rgba(29, 78, 216, 1); /* azul mais escuro ao passar o mouse */
     }
 
     /* Responsividade para tablets */
     @media (max-width: 1024px) {
       .btn-glpi {
-        top: 75%; /* ajusta a posição vertical */
-        left: 55%; /* ajusta a posição horizontal */
-        font-size: 16px; /* texto menor */
-        padding: 10px 20px; /* botão mais compacto */
+        top: 75%; 
+        left: 55%;
+        font-size: 16px;
+        padding: 10px 20px;
       }
     }
 
     /* Responsividade para celulares */
     @media (max-width: 600px) {
       .btn-glpi {
-        top: 80%; /* move um pouco mais pra baixo */
-        left: 50%; /* centraliza no meio */
-        font-size: 14px; /* fonte menor */
-        padding: 8px 18px; /* botão ainda mais compacto */
+        top: 80%;
+        left: 50%;
+        font-size: 14px;
+        padding: 8px 18px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- container com imagem de fundo -->
   <div class="container">
-    <!-- botão fixo em relação ao container -->
+    <!-- imagem responsiva -->
+    <img src="img/Supersonic-GLPI.jpg" alt="Fundo GLPI" class="bg-img">
+
+    <!-- botão fixo -->
     <a href="https://broadcast-adware-daughters-sa.trycloudflare.com/glpi" 
        target="_blank" 
        class="btn-glpi">
