@@ -1,1 +1,1 @@
-# glpi-access
+# glpi
