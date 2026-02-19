@@ -1,70 +1,196 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GLPI - SUPERSONIC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Atendimento - SUPERSONIC</title>
 
-  <!-- Ícone do lado do título -->
-  <link rel="icon" type="image/png" href="https://i.imgur.com/ACpTAh9.png">
-  
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      font-family: Arial, sans-serif;
-    }
+    <link rel="icon" type="image/png" href="https://i.imgur.com/ACpTAh9.png">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
 
-    /* Imagem de fundo esticada */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://i.imgur.com/V43vf3e.jpeg');
-      background-size: 100% 100%; /* estica para preencher toda a tela */
-      background-repeat: no-repeat;
-      background-position: center;
-      z-index: -1; /* deixa atrás do botão */
-    }
+    <style>
+        /* =========================================
+           CONFIGURAÇÕES GERAIS E FUNDO
+           ========================================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #3b4d56; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
-    /* Botão posicionado por porcentagem */
-    .btn {
-      position: absolute;
-      top: 83%;   /* distância do topo em porcentagem da tela */
-      left: 36%;  /* distância da esquerda em porcentagem da tela */
-      transform: translate(-50%, -50%); /* centraliza o botão no ponto definido */
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 12px;
-      background-color: #111827;
-      color: #fff;
-      cursor: pointer;
-      transition: transform 0.2s, opacity 0.2s;
-      text-decoration: none; /* remove o sublinhado */
-      display: inline-block; /* mantém aparência de botão */
+        /* =========================================
+           CABEÇALHO E MENU
+           ========================================= */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: rgba(0, 0, 0, 0.1); }
+        .logo-header { height: 40px; }
+        nav { display: flex; gap: 30px; }
+        nav a { color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; cursor: pointer; }
+        nav a:hover { color: #5ab1db; }
 
-    }
+        /* =========================================
+           CONTEÚDO PRINCIPAL
+           ========================================= */
+        main { flex: 1; padding: 50px; max-width: 900px; z-index: 10; }
+        h1 { font-size: 32px; margin-bottom: 15px; font-weight: 700; }
+        .subtitle { font-size: 15px; line-height: 1.6; color: #d1d5db; margin-bottom: 40px; }
+        h2 { font-size: 22px; margin-top: 30px; margin-bottom: 15px; font-weight: 600; }
+        
+        ul { list-style-type: none; margin-bottom: 30px; }
+        ul li { font-size: 15px; margin-bottom: 10px; line-height: 1.5; display: flex; align-items: flex-start; }
+        .lista-recursos li::before { content: "♦"; color: #5ab1db; font-size: 18px; margin-right: 10px; line-height: 1; }
+        .lista-passos li { margin-bottom: 12px; }
+        
+        .highlight { font-weight: bold; color: #ffffff; }
+        .footer-text { margin-top: 40px; font-size: 15px; color: #d1d5db; }
 
-    .btn:hover {
-      transform: translate(-50%, -50%) translateY(-3px);
-      opacity: 0.9;
-    }
+        /* =========================================
+           BOTÃO DE ACESSO
+           ========================================= */
+        .btn-container { margin-top: 30px; }
+        .btn { display: inline-block; background-color: #5ab1db; color: #ffffff; padding: 14px 32px; font-size: 16px; font-weight: bold; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: all 0.3s ease; }
+        .btn:hover { background-color: #3a8fb5; transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
+        .btn:active { transform: translateY(0); }
 
-    .btn:active {
-      transform: translate(-50%, -50%) translateY(0);
-      opacity: 0.8;
-    }
-  </style>
+        /* =========================================
+           MARCA D'ÁGUA
+           ========================================= */
+        .watermark { position: fixed; bottom: 40px; right: 50px; width: 250px; opacity: 0.5; z-index: 1; pointer-events: none; }
+
+        /* =========================================
+           A MÁGICA DA CAIXINHA (MODAL)
+           ========================================= */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Fundo preto transparente */
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999; /* Fica acima de TUDO no site */
+            opacity: 0; visibility: hidden; /* Escondido por padrão */
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active { opacity: 1; visibility: visible; /* Aparece quando ativado */ }
+
+        .modal-content {
+            background-color: #ffffff; color: #333333; /* Texto escuro no fundo branco */
+            padding: 30px; border-radius: 10px; width: 90%; max-width: 400px;
+            position: relative;
+            transform: translateY(-20px); /* Começa um pouco pra cima */
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .modal-overlay.active .modal-content { transform: translateY(0); /* Desce suavemente */ }
+
+        .modal-content h3 { color: #2c3e50; font-size: 22px; margin-bottom: 20px; border-bottom: 2px solid #5ab1db; padding-bottom: 10px; }
+        .modal-content p { font-size: 15px; margin-bottom: 12px; line-height: 1.5; }
+        .modal-content p strong { color: #5ab1db; } /* Destaca os títulos (Email, etc) de azul */
+
+        /* Botão "X" para fechar */
+        .fechar-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; font-weight: bold; color: #95a5a6; cursor: pointer; transition: 0.2s; }
+        .fechar-modal:hover { color: #e74c3c; /* Fica vermelho ao passar o mouse */ }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 20px; }
+            main { padding: 30px 20px; }
+            h1 { font-size: 26px; }
+            .watermark { width: 150px; bottom: 20px; right: 20px; opacity: 0.2; }
+        }
+    </style>
 </head>
 <body>
-  <a href="https://wing-early-float-responding.trycloudflare.com/glpi" class="btn">Acessar GLPI</button>
+
+    <header>
+        <img src="https://i.imgur.com/ACpTAh9.png" alt="Supersonic Logo" class="logo-header">
+        <nav>
+            <a href="https://ssonic-services.github.io/glpi-access/">Home</a>
+            <a onclick="abrirCaixinha('suporte')">Suporte</a>
+            <a href="GLPI.pdf" download="Tutorial_Supersonic_GLPI.pdf">Tutoriais</a> 
+            <!--<a onclick="abrirCaixinha('contato')">Contato</a> -->
+        </nav>
+    </header>
+
+    <main>
+        <h1>Bem-vindo ao Portal de Atendimento GLPI</h1>
+        <p class="subtitle">Este portal foi desenvolvido para centralizar e facilitar o atendimento das suas solicitações de TI.<br>Utilizando o sistema <strong>GLPI</strong>, garantimos organização, agilidade e acompanhamento da evolução dos seus chamados em tempo real.</p>
+        
+        <h2>O que você encontrará aqui?</h2>
+        <ul class="lista-recursos">
+            <li><span class="highlight">Abertura de Chamados:</span> Relate incidentes, falhas em equipamentos ou solicite novos acessos.</li>
+            <li><span class="highlight">Acompanhamento em Tempo Real:</span> Veja o status da sua solicitação e interaja diretamente com os técnicos.</li>
+            <li><span class="highlight">Histórico Completo:</span> Mantenha o registro de todos os chamados abertos por você.</li>
+            <li><span class="highlight">Facilidade de Acesso:</span> Tudo em um único ambiente integrado e seguro.</li>
+        </ul>
+
+        <h2>Como Utilizar?</h2>
+        <ul class="lista-passos">
+            <li>🖱️ Clique no botão azul abaixo para acessar o sistema.</li>
+            <li>🔑 Faça login utilizando suas credenciais corporativas padrão.</li>
+            <li>📝 Preencha o formulário descrevendo o seu problema com o máximo de detalhes.</li>
+        </ul>
+
+        <p class="footer-text">Nosso objetivo é oferecer o melhor suporte técnico para que você possa focar no seu trabalho.<br>Em caso de urgências críticas, entre em contato direto com a equipe.</p>
+        <p style="margin-top: 20px; font-weight: bold;">Acesse e aproveite a experiência! 🚀</p>
+
+        <div class="btn-container">
+            <a href="https://wing-early-float-responding.trycloudflare.com/glpi" class="btn">Acessar GLPI</a>
+        </div>
+    </main>
+
+    <img src="https://imgur.com/Wt5QreH.png" alt="Supersonic Watermark" class="watermark">
+
+    <div id="fundo-escuro" class="modal-overlay">
+        <div class="modal-content">
+            <span class="fechar-modal" onclick="fecharCaixinha()">&times;</span>
+            
+            <h3 id="titulo-caixinha">Informações</h3>
+            
+            <div id="texto-caixinha"></div>
+        </div>
+    </div>
+
+    <script>
+        // 1. AQUI VOCÊ EDITA OS SEUS DADOS REAIS DE CONTATO E SUPORTE
+        const informacoes = {
+            suporte: {
+                titulo: "Suporte Técnico de TI",
+                texto: `
+                    <p><strong>E-mail:</strong> gabriel.melo@ssonic.com.br</p>
+                    <!-- <p><strong>Cel. Corporativo:</strong> (19) 99610-4602</p> -->
+                    <p><strong>Horário de Atendimento:</strong><br> Segunda a Sexta, das 08h às 18h</p>
+                    <p><em>Use o botão "Acessar GLPI" para problemas não urgentes.</em></p>
+                `
+            },
+            contato: {
+                titulo: "Fale Conosco (Geral)",
+                texto: `
+                    <p><strong>E-mail Comercial:</strong> contato@supersonic.com.br</p>
+                    <p><strong>Telefone Principal:</strong> (11) 99999-9999</p>
+                    <p><strong>Sede:</strong> Edifício Empresarial Central - Andar 5</p>
+                `
+            }
+        };
+
+        // 2. Função que pega os dados e abre a caixinha
+        function abrirCaixinha(tipo) {
+            // Pega o título e o texto de acordo com o link clicado (suporte ou contato)
+            document.getElementById('titulo-caixinha').innerText = informacoes[tipo].titulo;
+            document.getElementById('texto-caixinha').innerHTML = informacoes[tipo].texto;
+            
+            // Adiciona a classe que faz a mágica de aparecer na tela
+            document.getElementById('fundo-escuro').classList.add('active');
+        }
+
+        // 3. Função que fecha a caixinha
+        function fecharCaixinha() {
+            document.getElementById('fundo-escuro').classList.remove('active');
+        }
+
+        // 4. Se o usuário clicar no fundo escuro (fora da caixa branca), fecha também
+        window.onclick = function(evento) {
+            const fundo = document.getElementById('fundo-escuro');
+            if (evento.target === fundo) {
+                fecharCaixinha();
+            }
+        }
+    </script>
+
 </body>
 </html>
