@@ -6,184 +6,358 @@
     <title>Portal de Atendimento - SUPERSONIC</title>
 
     <link rel="icon" type="image/png" href="https://i.imgur.com/ACpTAh9.png">
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         /* =========================================
-           CONFIGURAÇÕES GERAIS E FUNDO
+           1. RESET E FUNDO GERAL (DARK MATERIA)
            ========================================= */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #3b4d56; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
-
-        /* =========================================
-           CABEÇALHO E MENU
-           ========================================= */
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: rgba(0, 0, 0, 0.1); }
-        .logo-header { height: 40px; }
-        nav { display: flex; gap: 30px; }
-        nav a { color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; cursor: pointer; }
-        nav a:hover { color: #5ab1db; }
-
-        /* =========================================
-           CONTEÚDO PRINCIPAL
-           ========================================= */
-        main { flex: 1; padding: 50px; max-width: 900px; z-index: 10; }
-        h1 { font-size: 32px; margin-bottom: 15px; font-weight: 700; }
-        .subtitle { font-size: 15px; line-height: 1.6; color: #d1d5db; margin-bottom: 40px; }
-        h2 { font-size: 22px; margin-top: 30px; margin-bottom: 15px; font-weight: 600; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
         
-        ul { list-style-type: none; margin-bottom: 30px; }
-        ul li { font-size: 15px; margin-bottom: 10px; line-height: 1.5; display: flex; align-items: flex-start; }
-        .lista-recursos li::before { content: "♦"; color: #5ab1db; font-size: 18px; margin-right: 10px; line-height: 1; }
-        .lista-passos li { margin-bottom: 12px; }
+        body { 
+            background-color: #0b0f19; /* Fundo super escuro e neutro */
+            color: #e2e8f0; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-x: hidden; 
+            position: relative;
+        }
+
+        /* =========================================
+           2. AMBIENT LIGHTING (AS LUZES VIVAS DO FUNDO)
+           ========================================= */
+        .ambient-light {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            animation: float 20s infinite alternate ease-in-out;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .light-1 {
+            top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            animation-delay: 0s;
+        }
+        .light-2 {
+            bottom: -20%; right: -10%;
+            width: 60vw; height: 60vw;
+            background: linear-gradient(135deg, #0284c7, #06b6d4);
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(5%, 10%) scale(1.1); }
+            100% { transform: translate(-5%, -5%) scale(0.95); }
+        }
+
+        /* =========================================
+           3. CABEÇALHO (ULTRA GLASS)
+           ========================================= */
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px 60px; 
+            background: rgba(11, 15, 25, 0.4); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo-header { height: 40px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.1)); transition: transform 0.3s; }
+        .logo-header:hover { transform: scale(1.05); }
         
-        .highlight { font-weight: bold; color: #ffffff; }
-        .footer-text { margin-top: 40px; font-size: 15px; color: #d1d5db; }
+        nav { display: flex; gap: 40px; }
+        nav a { 
+            color: #94a3b8; 
+            text-decoration: none; 
+            font-size: 13px; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+        }
+        nav a:hover { color: #ffffff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
 
         /* =========================================
-           BOTÃO DE ACESSO
+           4. CONTEÚDO CENTRAL (O CARTÃO PRINCIPAL)
            ========================================= */
-        .btn-container { margin-top: 30px; }
-        .btn { display: inline-block; background-color: #5ab1db; color: #ffffff; padding: 14px 32px; font-size: 16px; font-weight: bold; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: all 0.3s ease; }
-        .btn:hover { background-color: #3a8fb5; transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
-        .btn:active { transform: translateY(0); }
+        .container-central {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            padding: 60px 20px; position: relative; z-index: 10;
+        }
+
+        main { 
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            /* O Segredo do Edge Lighting (Bordas iluminadas) */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 60px 70px; 
+            max-width: 900px; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.02);
+            position: relative;
+            overflow: hidden;
+            
+            /* Animação de entrada do cartão inteiro */
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0; transform: translateY(40px);
+        }
+
+        /* Classes para a animação em cascata (Textos aparecendo um por um) */
+        .animate-1 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
+        .animate-2 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; opacity: 0; }
+        .animate-3 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; opacity: 0; }
+        .animate-4 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; opacity: 0; }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
         /* =========================================
-           MARCA D'ÁGUA
+           5. TIPOGRAFIA PREMIUM
            ========================================= */
-        .watermark { position: fixed; bottom: 40px; right: 50px; width: 250px; opacity: 0.5; z-index: 1; pointer-events: none; }
+        h1 { 
+            font-size: 44px; 
+            margin-bottom: 15px; 
+            font-weight: 900; 
+            /* Texto Animado com Degradê */
+            background: linear-gradient(to right, #ffffff 20%, #60a5fa 50%, #ffffff 80%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .subtitle { font-size: 17px; line-height: 1.6; color: #cbd5e1; margin-bottom: 50px; font-weight: 300;}
+        .subtitle strong { color: #ffffff; font-weight: 600; }
+        
+        h2 { 
+            font-size: 18px; 
+            margin-top: 40px; 
+            margin-bottom: 25px; 
+            font-weight: 700; 
+            color: #60a5fa; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+        }
+        
+        /* Listas Modernizadas (Hover Magnético) */
+        ul { list-style-type: none; margin-bottom: 40px; }
+        ul li { 
+            font-size: 16px; 
+            margin-bottom: 15px; 
+            line-height: 1.5; 
+            display: flex; 
+            align-items: flex-start; 
+            color: #e2e8f0;
+            background: rgba(255,255,255,0.02);
+            padding: 16px 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-weight: 300;
+        }
+        ul li:hover { 
+            background: rgba(255,255,255,0.06); 
+            border-color: rgba(96, 165, 250, 0.3);
+            transform: translateX(8px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .lista-recursos li::before { content: "✦"; color: #34d399; font-size: 20px; margin-right: 15px; line-height: 1.2; }
+        .lista-passos li::before { content: "➔"; color: #60a5fa; font-size: 18px; margin-right: 15px; line-height: 1.2;}
+        
+        .highlight { font-weight: 600; color: #ffffff; }
+        .footer-text { margin-top: 50px; font-size: 14px; color: #64748b; text-align: center; font-weight: 400;}
 
         /* =========================================
-           A MÁGICA DA CAIXINHA (MODAL)
+           6. BOTÃO DE ACESSO (O "CALL TO ACTION")
+           ========================================= */
+        .btn-container { margin-top: 50px; text-align: center; }
+        .btn { 
+            display: inline-block; 
+            background: #2563eb;
+            color: #ffffff; 
+            padding: 18px 50px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none; 
+            border-radius: 50px; 
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255,255,255,0.3); 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+            position: relative;
+            overflow: hidden;
+        }
+        /* Efeito de brilho passando pelo botão */
+        .btn::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.6s ease;
+        }
+        .btn:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.6), inset 0 1px 0 rgba(255,255,255,0.4); 
+            background: #1d4ed8;
+        }
+        .btn:hover::after { left: 100%; }
+        .btn:active { transform: translateY(2px); }
+
+        /* =========================================
+           7. MARCA D'ÁGUA
+           ========================================= */
+        .watermark { position: fixed; bottom: 30px; right: 40px; width: 200px; opacity: 0.15; z-index: 1; pointer-events: none; mix-blend-mode: overlay; }
+
+        /* =========================================
+           8. MODAL DE SUPORTE (CAIXINHA DE VIDRO)
            ========================================= */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); /* Fundo preto transparente */
+            background: rgba(0, 0, 0, 0.6); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             display: flex; align-items: center; justify-content: center;
-            z-index: 9999; /* Fica acima de TUDO no site */
-            opacity: 0; visibility: hidden; /* Escondido por padrão */
-            transition: all 0.3s ease;
+            z-index: 9999; 
+            opacity: 0; visibility: hidden; 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .modal-overlay.active { opacity: 1; visibility: visible; /* Aparece quando ativado */ }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
 
         .modal-content {
-            background-color: #ffffff; color: #333333; /* Texto escuro no fundo branco */
-            padding: 30px; border-radius: 10px; width: 90%; max-width: 400px;
+            background: rgba(15, 23, 42, 0.8); 
+            color: #e2e8f0; 
+            padding: 50px; 
+            border-radius: 24px; 
+            width: 90%; max-width: 480px;
             position: relative;
-            transform: translateY(-20px); /* Começa um pouco pra cima */
-            transition: all 0.3s ease;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            transform: translateY(50px) scale(0.9); 
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
+        .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
 
-        .modal-overlay.active .modal-content { transform: translateY(0); /* Desce suavemente */ }
+        .modal-content h3 { 
+            color: #ffffff; font-size: 26px; margin-bottom: 30px; 
+            font-weight: 800; letter-spacing: -0.5px;
+        }
+        .modal-content p { font-size: 16px; margin-bottom: 15px; line-height: 1.6; color: #cbd5e1; font-weight: 300;}
+        .modal-content p strong { color: #60a5fa; font-weight: 600; } 
 
-        .modal-content h3 { color: #2c3e50; font-size: 22px; margin-bottom: 20px; border-bottom: 2px solid #5ab1db; padding-bottom: 10px; }
-        .modal-content p { font-size: 15px; margin-bottom: 12px; line-height: 1.5; }
-        .modal-content p strong { color: #5ab1db; } /* Destaca os títulos (Email, etc) de azul */
+        .fechar-modal { 
+            position: absolute; top: 25px; right: 30px; 
+            font-size: 32px; font-weight: 300; color: #64748b; 
+            cursor: pointer; transition: all 0.3s ease; 
+        }
+        .fechar-modal:hover { color: #ef4444; transform: rotate(90deg); }
 
-        /* Botão "X" para fechar */
-        .fechar-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; font-weight: bold; color: #95a5a6; cursor: pointer; transition: 0.2s; }
-        .fechar-modal:hover { color: #e74c3c; /* Fica vermelho ao passar o mouse */ }
-
-        /* Responsividade */
+        /* =========================================
+           9. RESPONSIVIDADE
+           ========================================= */
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 20px; }
-            main { padding: 30px 20px; }
-            h1 { font-size: 26px; }
-            .watermark { width: 150px; bottom: 20px; right: 20px; opacity: 0.2; }
+            header { flex-direction: column; gap: 20px; padding: 20px; }
+            main { padding: 40px 25px; border-radius: 20px; }
+            h1 { font-size: 32px; }
+            .watermark { width: 120px; bottom: 20px; right: 20px; }
+            .btn { width: 100%; padding: 18px 20px; }
+            ul li { padding: 15px; flex-direction: column; align-items: flex-start; }
+            .lista-recursos li::before, .lista-passos li::before { margin-bottom: 10px; }
         }
     </style>
 </head>
 <body>
 
+    <div class="ambient-light light-1"></div>
+    <div class="ambient-light light-2"></div>
+
     <header>
-        <img src="https://i.imgur.com/ACpTAh9.png" alt="Supersonic Logo" class="logo-header">
-        <nav>
+        <img src="https://i.imgur.com/ACpTAh9.png" alt="Supersonic Logo" class="logo-header animate-1">
+        <nav class="animate-1">
             <a href="https://ssonic-services.github.io/glpi-access/">Home</a>
             <a onclick="abrirCaixinha('suporte')">Suporte</a>
             <a href="GLPI.pdf" download="Tutorial_Supersonic_GLPI.pdf">Tutoriais</a> 
-            <!--<a onclick="abrirCaixinha('contato')">Contato</a> -->
         </nav>
     </header>
 
-    <main>
-        <h1>Bem-vindo ao Portal de Atendimento GLPI</h1>
-        <p class="subtitle">Este portal foi desenvolvido para centralizar e facilitar o atendimento das suas solicitações de TI.<br>Utilizando o sistema <strong>GLPI</strong>, garantimos organização, agilidade e acompanhamento da evolução dos seus chamados em tempo real.</p>
-        
-        <h2>O que você encontrará aqui?</h2>
-        <ul class="lista-recursos">
-            <li><span class="highlight">Abertura de Chamados: </span> &nbsp Relate incidentes, falhas em equipamentos ou solicite novos acessos.</li>
-            <li><span class="highlight">Acompanhamento em Tempo Real: </span> &nbsp Veja o status da sua solicitação e interaja diretamente com os técnicos.</li>
-            <li><span class="highlight">Histórico Completo: </span> &nbsp Mantenha o registro de todos os chamados abertos por você.</li>
-            <li><span class="highlight">Facilidade de Acesso: </span> &nbsp Tudo em um único ambiente integrado e seguro.</li>
-        </ul>
+    <div class="container-central">
+        <main>
+            <h1 class="animate-1">Bem-vindo ao Portal de Atendimento</h1>
+            <p class="subtitle animate-1">Este portal foi desenvolvido para centralizar e facilitar o atendimento das suas solicitações de TI. Utilizando o sistema <strong>GLPI</strong>, garantimos organização, agilidade e acompanhamento da evolução dos seus chamados em tempo real.</p>
+            
+            <h2 class="animate-2">O que você encontrará aqui?</h2>
+            <ul class="lista-recursos animate-2">
+                <li><span><span class="highlight">Abertura de Chamados:</span> Relate incidentes, falhas em equipamentos ou solicite novos acessos.</span></li>
+                <li><span><span class="highlight">Acompanhamento em Tempo Real:</span> Veja o status da sua solicitação e interaja com os técnicos.</span></li>
+                <li><span><span class="highlight">Histórico Completo:</span> Mantenha o registro de todos os chamados abertos por você.</span></li>
+            </ul>
 
-        <h2>Como Utilizar?</h2>
-        <ul class="lista-passos">
-            <li>🖱️ Clique no botão azul abaixo para acessar o sistema.</li>
-            <li>🔑 Faça login utilizando suas credenciais corporativas padrão.</li>
-            <li>📝 Preencha o formulário descrevendo o seu problema com o máximo de detalhes.</li>
-        </ul>
+            <h2 class="animate-3">Como Utilizar?</h2>
+            <ul class="lista-passos animate-3">
+                <li><span>Clique no botão azul abaixo para acessar o sistema de forma segura.</span></li>
+                <li><span>Faça login utilizando suas credenciais corporativas padrão.</span></li>
+                <li><span>Preencha o formulário descrevendo o seu problema com o máximo de detalhes.</span></li>
+            </ul>
 
-        <p class="footer-text">Nosso objetivo é oferecer o melhor suporte técnico para que você possa focar no seu trabalho.<br>Em caso de urgências críticas, entre em contato direto com a equipe.</p>
-        <p style="margin-top: 20px; font-weight: bold;">Acesse e aproveite a experiência! 🚀</p>
+            <div class="btn-container animate-4">
+                <a href="https://measured-cocktail-caused-below.trycloudflare.com/glpi" class="btn">Acessar Plataforma GLPI</a>
+            </div>
 
-        <div class="btn-container">
-            <a href="https://measured-cocktail-caused-below.trycloudflare.com/glpi" class="btn">Acessar GLPI</a>
-        </div>
-    </main>
+            <p class="footer-text animate-4">Nosso objetivo é oferecer o melhor suporte técnico para que você possa focar no seu trabalho.<br>Em caso de urgências críticas, acione a modalidade de suporte via contato direto.</p>
+        </main>
+    </div>
 
     <img src="https://imgur.com/Wt5QreH.png" alt="Supersonic Watermark" class="watermark">
 
     <div id="fundo-escuro" class="modal-overlay">
         <div class="modal-content">
             <span class="fechar-modal" onclick="fecharCaixinha()">&times;</span>
-            
             <h3 id="titulo-caixinha">Informações</h3>
-            
             <div id="texto-caixinha"></div>
         </div>
     </div>
 
     <script>
-        // 1. AQUI VOCÊ EDITA OS SEUS DADOS REAIS DE CONTATO E SUPORTE
         const informacoes = {
             suporte: {
                 titulo: "Suporte Técnico de TI",
                 texto: `
                     <p><strong>E-mail:</strong> gabriel.melo@ssonic.com.br</p>
-                    <!-- <p><strong>Cel. Corporativo:</strong> (19) 99610-4602</p> -->
                     <p><strong>Horário de Atendimento:</strong><br> Segunda a Sexta, das 08h às 18h</p>
-                    <p><em>Use o botão "Acessar GLPI" para problemas não urgentes.</em></p>
-                `
-            },
-            contato: {
-                titulo: "Fale Conosco (Geral)",
-                texto: `
-                    <p><strong>E-mail Comercial:</strong> contato@supersonic.com.br</p>
-                    <p><strong>Telefone Principal:</strong> (11) 99999-9999</p>
-                    <p><strong>Sede:</strong> Edifício Empresarial Central - Andar 5</p>
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin: 25px 0;">
+                    <p style="font-size: 13px; color: #64748b; font-weight: 400;"><em>Para incidentes comuns ou solicitações de rotina, utilize o botão principal de acesso ao GLPI.</em></p>
                 `
             }
         };
 
-        // 2. Função que pega os dados e abre a caixinha
         function abrirCaixinha(tipo) {
-            // Pega o título e o texto de acordo com o link clicado (suporte ou contato)
             document.getElementById('titulo-caixinha').innerText = informacoes[tipo].titulo;
             document.getElementById('texto-caixinha').innerHTML = informacoes[tipo].texto;
-            
-            // Adiciona a classe que faz a mágica de aparecer na tela
             document.getElementById('fundo-escuro').classList.add('active');
         }
 
-        // 3. Função que fecha a caixinha
         function fecharCaixinha() {
             document.getElementById('fundo-escuro').classList.remove('active');
         }
 
-        // 4. Se o usuário clicar no fundo escuro (fora da caixa branca), fecha também
         window.onclick = function(evento) {
             const fundo = document.getElementById('fundo-escuro');
             if (evento.target === fundo) {
