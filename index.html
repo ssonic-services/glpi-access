@@ -35,14 +35,14 @@
             background-color: var(--branco); 
             color: var(--texto-principal); 
             height: 100vh !important; 
-            overflow: hidden !important; /* TRAVA A ROLAGEM */
+            overflow: hidden !important; 
             display: flex; 
             flex-direction: column; 
             position: relative;
         }
 
         /* =========================================
-           2. GEOMETRIA DE FUNDO
+           2. GEOMETRIA DE FUNDO & MARCA D'ÁGUA
            ========================================= */
         .bg-shape-light {
             position: fixed; top: 0; left: 0;
@@ -60,25 +60,31 @@
             z-index: 0;
         }
 
+        /* Nova Marca D'água (Canto Inferior Esquerdo) */
+        .watermark { 
+            position: fixed; 
+            bottom: clamp(20px, 5vh, 40px); 
+            left: clamp(20px, 4vw, 50px); 
+            width: clamp(150px, 15vw, 250px); 
+            opacity: 0.15; /* Sutilidade */
+            z-index: 1; 
+            pointer-events: none; 
+            mix-blend-mode: overlay; /* Faz a logo se misturar perfeitamente com o fundo azul escuro */
+            filter: brightness(100%); /* Garante que a logo fique branca para contrastar com o Azul Noite */
+        }
+
         /* =========================================
-           3. CABEÇALHO
+           3. CABEÇALHO (AGORA SÓ COM OS LINKS)
            ========================================= */
         header { 
             display: flex; 
-            justify-content: space-between; 
+            justify-content: flex-end; /* Empurra o menu para a direita, já que a logo saiu */
             align-items: center; 
-            padding: clamp(15px, 3vh, 30px) 60px; /* Padding dinâmico */
+            padding: clamp(15px, 3vh, 30px) 60px; 
             background: transparent;
             position: relative;
             z-index: 100;
         }
-        
-        .logo-header { 
-            height: clamp(35px, 5vh, 45px); /* Logo diminui em telas baixas */
-            transition: transform 0.3s;
-             
-        }
-        .logo-header:hover { transform: scale(1.05); }
         
         nav { display: flex; gap: 40px; }
         nav a { 
@@ -107,11 +113,11 @@
         }
 
         main { 
-            background: rgba(255, 255, 255, 0.95); /* Fundo quase sólido para leitura */
-            padding: clamp(20px, 4vh, 50px); /* Ajusta o respiro interno */
+            background: rgba(255, 255, 255, 0.95); 
+            padding: clamp(20px, 4vh, 50px); 
             max-width: 650px; 
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05); /* Sombra super leve para destacar do fundo branco */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05); 
             
             animation: fadeLeft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0; transform: translateX(40px);
@@ -240,15 +246,15 @@
         .fechar-modal:hover { color: var(--azul-dia); }
 
         /* =========================================
-           8. RESPONSIVIDADE (LIBERA SCROLL NO CELULAR)
+           8. RESPONSIVIDADE
            ========================================= */
         @media (max-width: 900px) {
-            body { height: auto !important; overflow-y: auto !important; } /* Libera rolagem só no celular */
+            body { height: auto !important; overflow-y: auto !important; } 
             
             .bg-shape-light { width: 100vw; height: 15vh; clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%); }
             .bg-shape-dark { width: 100vw; height: 15vh; bottom: 0; clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%); }
             
-            header { flex-direction: column; gap: 20px; padding: 25px 20px; }
+            header { justify-content: center; padding: 25px 20px; }
             .container-central { justify-content: center; padding: 20px; margin-bottom: 50px;}
             main { padding: 30px 20px; text-align: center; }
             
@@ -256,6 +262,9 @@
             ul li { flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;}
             .lista-recursos li::before, .lista-passos li::before { margin-right: 0; margin-bottom: 8px; }
             .btn { width: 100%; }
+
+            /* Oculta a marca d'água no mobile para não poluir o fundo */
+            .watermark { display: none; }
         }
     </style>
 </head>
@@ -263,9 +272,10 @@
 
     <div class="bg-shape-light"></div>
     <div class="bg-shape-dark"></div>
+    
+    <img src="https://imgur.com/Wt5QreH.png" alt="Supersonic Watermark" class="watermark animate-1">
 
     <header>
-        <img src="https://imgur.com/Wt5QreH.png" alt="Supersonic Logo" class="logo-header animate-1">
         <nav class="animate-1">
             <a href="https://ssonic-services.github.io/glpi-access/">Home</a>
             <a onclick="abrirCaixinha('suporte')">Suporte</a>
