@@ -19,10 +19,11 @@
             --cinza-claro: #F1F5F9;
             --branco: #FFFFFF;
             --texto-principal: #1E293B;
+            --edge-lighting: rgba(255, 255, 255, 0.3);
         }
 
         /* =========================================
-           1. RESET E FUNDO GERAL
+           1. RESET E FUNDO GERAL (ZERO SCROLL)
            ========================================= */
         * { 
             margin: 0; 
@@ -73,7 +74,7 @@
         }
 
         /* =========================================
-           3. CABEÇALHO
+           3. CABEÇALHO (TRANSPARENTE HUD)
            ========================================= */
         header { 
             display: flex; 
@@ -92,14 +93,14 @@
             font-size: clamp(12px, 1.5vh, 14px); 
             font-weight: 700; 
             text-transform: uppercase; 
-            letter-spacing: 1px; 
-            transition: color 0.2s ease; 
+            letter-spacing: 2.5px; 
+            transition: all 0.3s ease; 
             cursor: pointer; 
         }
-        nav a:hover { color: var(--azul-dia); }
+        nav a:hover { color: var(--azul-dia); text-shadow: 0 0 10px rgba(20, 177, 231, 0.3); }
 
         /* =========================================
-           4. CONTEÚDO CENTRAL (DIREITA)
+           4. CONTEÚDO CENTRAL (DIREITA - GLASS)
            ========================================= */
         .container-central {
             flex: 1; 
@@ -112,27 +113,32 @@
         }
 
         main { 
-            background: rgba(255, 255, 255, 0.95); 
-            padding: clamp(20px, 4vh, 50px); 
-            max-width: 650px; 
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05); 
+            background: rgba(255, 255, 255, 0.35); 
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: clamp(30px, 6vh, 70px); 
+            max-width: 700px; 
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid var(--edge-lighting);
+            border-left: 1px solid var(--edge-lighting);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.02); 
             
-            animation: fadeLeft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0; transform: translateX(40px);
+            animation: fadeLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0; transform: translateX(50px);
         }
 
-        .animate-1 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; }
-        .animate-2 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
-        .animate-3 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; opacity: 0; }
-        .animate-4 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; opacity: 0; }
+        .animate-1 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; opacity: 0; }
+        .animate-2 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; opacity: 0; }
+        .animate-3 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards; opacity: 0; }
+        .animate-4 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards; opacity: 0; }
 
         @keyframes fadeLeft {
-            0% { opacity: 0; transform: translateX(40px); }
+            0% { opacity: 0; transform: translateX(50px); }
             100% { opacity: 1; transform: translateX(0); }
         }
         @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(15px); }
+            0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
@@ -140,134 +146,159 @@
            5. TIPOGRAFIA 
            ========================================= */
         h1 { 
-            font-size: clamp(26px, 4.5vh, 40px); 
-            margin-bottom: clamp(10px, 1.5vh, 15px); 
+            font-size: clamp(30px, 5.5vh, 48px); 
+            margin-bottom: clamp(10px, 1.5vh, 20px); 
             font-weight: 800; 
             color: var(--azul-noite);
-            letter-spacing: -1px;
-            line-height: 1.1;
+            letter-spacing: -1.5px;
+            line-height: 1;
         }
 
         .subtitle { 
-            font-size: clamp(14px, 2vh, 16px); 
-            line-height: 1.5; 
+            font-size: clamp(15px, 2.2vh, 18px); 
+            line-height: 1.6; 
             color: var(--cinza); 
-            margin-bottom: clamp(15px, 3vh, 30px); 
-            font-weight: 400;
+            margin-bottom: clamp(20px, 4vh, 40px); 
+            font-weight: 300;
         }
-        .subtitle strong { color: var(--azul-noite); font-weight: 700; }
+        .subtitle strong { color: var(--azul-noite); font-weight: 600; }
         
         h2 { 
-            font-size: clamp(14px, 2vh, 16px); 
-            margin-top: clamp(15px, 3vh, 30px); 
-            margin-bottom: clamp(10px, 2vh, 15px); 
+            font-size: clamp(15px, 2vh, 17px); 
+            margin-top: clamp(20px, 3.5vh, 40px); 
+            margin-bottom: clamp(10px, 2vh, 20px); 
             font-weight: 800; 
             color: var(--azul-dia); 
             text-transform: uppercase; 
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
         }
         
-        ul { list-style-type: none; margin-bottom: clamp(15px, 3vh, 25px); }
+        ul { list-style-type: none; margin-bottom: clamp(20px, 3.5vh, 30px); }
         ul li { 
-            font-size: clamp(13px, 1.8vh, 15px); 
+            font-size: clamp(13px, 1.8vh, 16px); 
             margin-bottom: clamp(8px, 1.5vh, 12px); 
-            line-height: 1.4; 
+            line-height: 1.5; 
             display: flex; 
-            align-items: flex-start; 
+            align-items: center; 
             color: var(--cinza);
-            font-weight: 500;
+            background: rgba(255,255,255,0.03);
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 400;
+            transition: all 0.2s ease;
         }
+        ul li:hover { background: rgba(255,255,255,0.08); transform: translateX(3px);}
         
-        .lista-recursos li::before { content: "■"; color: var(--azul-dia); font-size: 14px; margin-right: 15px; }
+        .lista-recursos li::before { content: "✓"; color: #10b981; font-size: 16px; font-weight: bold; margin-right: 15px; }
         .lista-passos li::before { content: "→"; color: var(--azul-noite); font-size: 18px; margin-right: 15px; font-weight: bold;}
         
-        .highlight { font-weight: 700; color: var(--azul-noite); }
-        .footer-text { margin-top: clamp(20px, 3vh, 30px); font-size: clamp(11px, 1.5vh, 13px); color: #94a3b8; font-weight: 400;}
+        .footer-text { margin-top: clamp(25px, 4vh, 40px); font-size: clamp(11px, 1.5vh, 14px); color: #94a3b8; font-weight: 400; text-align: center;}
 
         /* =========================================
-           6. CAIXA DE SELEÇÃO E BOTÃO
+           6. CAIXA DE SELEÇÃO E ACESSO LIMITADO
            ========================================= */
+        /* Wrapper para forçar o alinhamento com o título */
+        .acesso-wrapper {
+            display: inline-block; /* Faz a largura se ajustar ao título h2 */
+            text-align: left; /* Garante alinhamento à esquerda dos itens */
+            margin-top: clamp(20px, 3.5vh, 40px);
+        }
+
+        /* Título do acesso sem margem inferior */
+        .acesso-title {
+            margin-top: 0;
+            margin-bottom: 0; /* Alinhado ao topo */
+        }
+
         .secao-acesso {
-            background-color: var(--cinza-claro);
-            padding: clamp(15px, 3vh, 20px);
-            border-radius: 8px;
-            margin-top: clamp(15px, 3vh, 25px);
+            background-color: var(--branco); 
+            padding: 10px 12px; /* Super compacto */
+            border-radius: 6px; 
+            margin-top: 15px; /* Espaço para o título */
             border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); 
+            transition: all 0.3s ease;
+            width: 100%; /* Preenche a largura do wrapper */
+        }
+        .secao-acesso:hover {
+            box-shadow: 0 6px 15px rgba(57, 79, 90, 0.08);
         }
 
         .select-box {
             display: flex;
             flex-direction: column;
-            margin-bottom: 15px;
+            margin-bottom: 8px; /* Espaço mínimo */
         }
 
         .select-box label {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--azul-noite);
-            margin-bottom: 8px;
+            font-size: 11px; 
+            font-weight: 600;
+            color: #64748B; 
+            margin-bottom: 4px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .select-box select {
             width: 100%;
-            padding: 12px 15px;
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--texto-principal);
-            background-color: var(--branco);
-            border: 2px solid #CBD5E1;
-            border-radius: 6px;
+            height: 30px; /* Altura clássica de formulário compacto */
+            padding: 0 10px; /* Pouquíssimo espaçamento interno */
+            font-size: 13px; /* Texto normal */
+            font-weight: 400; /* Sem negrito, clássico */
+            color: #333333; /* Cinza chumbo */
+            background-color: #FFFFFF; 
+            border: 1px solid #B3B3B3; /* Borda cinza simples */
+            border-radius: 3px; /* Cantinhos quase retos */
             outline: none;
-            transition: all 0.3s ease;
             cursor: pointer;
             appearance: none;
-            /* Ícone de setinha personalizado */
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23394F5A%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            /* Setinha clássica cinza */
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
             background-repeat: no-repeat;
-            background-position: right 15px top 50%;
-            background-size: 12px auto;
+            background-position: right 8px top 50%;
+            background-size: 8px auto; 
         }
 
         .select-box select:focus {
             border-color: var(--azul-dia);
-            box-shadow: 0 0 0 3px rgba(20, 177, 231, 0.1);
         }
 
         .btn-container { text-align: left; }
+        
         .btn { 
             display: inline-block; 
             width: 100%;
             text-align: center;
-            background: var(--azul-dia);
-            color: var(--branco); 
-            padding: clamp(12px, 2vh, 16px) clamp(25px, 4vw, 40px); 
-            font-size: clamp(13px, 1.8vh, 15px); 
+            height: 30px; /* Mesma altura da caixa de seleção */
+            line-height: 30px; /* Centraliza o texto verticalmente */
+            padding: 0; 
+            font-size: 12px; /* Letra menor */
             font-weight: 700; 
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-decoration: none; 
-            border-radius: 4px; 
-            transition: all 0.2s ease; 
-        }
-        
-        .btn.ativo:hover { 
-            background: var(--azul-noite); 
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(57, 79, 90, 0.2);
+            border-radius: 3px; /* Acompanha o formato da caixa */
+            transition: all 0.3s ease; 
         }
 
         /* Estilo do botão desativado */
         .btn.desativado {
-            opacity: 0.4;
+            background: #E2E8F0;
+            color: #94A3B8;
             pointer-events: none;
-            filter: grayscale(100%);
-            background: var(--cinza);
+        }
+        
+        /* Estilo do botão ATIVO */
+        .btn.ativo {
+            background: var(--azul-dia);
+            color: var(--branco); 
+        }
+
+        .btn.ativo:hover { 
+            background: #10a1d4;
         }
 
         /* =========================================
-           7. MODAL DE SUPORTE
+           7. MODAL DE SUPORTE (CAIXA DE VIDRO DARK)
            ========================================= */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -282,25 +313,26 @@
         .modal-overlay.active { opacity: 1; visibility: visible; }
 
         .modal-content {
-            background: var(--branco); 
-            color: var(--texto-principal); 
-            padding: 40px; 
-            border-radius: 8px; 
-            width: 90%; max-width: 450px;
+            background: rgba(57, 79, 90, 0.85); 
+            color: var(--branco); 
+            padding: 50px; 
+            border-radius: 20px; 
+            width: 90%; max-width: 480px;
             position: relative;
-            transform: scale(0.95); 
-            transition: all 0.3s ease;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
-            border: 1px solid var(--cinza-claro);
+            transform: translateY(30px) scale(0.95); 
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255,255,255,0.15);
         }
-        .modal-overlay.active .modal-content { transform: scale(1); }
+        .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
 
-        .modal-content h3 { color: var(--azul-noite); font-size: 22px; margin-bottom: 25px; font-weight: 800; letter-spacing: -0.5px;}
-        .modal-content p { font-size: 15px; margin-bottom: 12px; line-height: 1.6; color: var(--cinza); }
-        .modal-content p strong { color: var(--azul-noite); font-weight: 700; } 
+        .modal-content h3 { color: #ffffff; font-size: 26px; margin-bottom: 30px; font-weight: 800; letter-spacing: -0.5px;}
+        .modal-content p { font-size: 16px; margin-bottom: 15px; line-height: 1.6; color: #cbd5e1; font-weight: 300;}
+        .modal-content p strong { color: var(--azul-dia); font-weight: 600; } 
 
-        .fechar-modal { position: absolute; top: 20px; right: 25px; font-size: 28px; font-weight: 400; color: #94a3b8; cursor: pointer; transition: color 0.2s; }
-        .fechar-modal:hover { color: var(--azul-dia); }
+        .fechar-modal { position: absolute; top: 20px; right: 25px; font-size: 30px; font-weight: 300; color: #94a3b8; cursor: pointer; transition: color 0.2s; }
+        .fechar-modal:hover { color: var(--azul-dia); transform: rotate(90deg); }
 
         /* =========================================
            8. RESPONSIVIDADE
@@ -312,15 +344,18 @@
             .bg-shape-dark { width: 100vw; height: 15vh; bottom: 0; clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%); }
             
             header { justify-content: center; padding: 25px 20px; }
-            .container-central { justify-content: center; padding: 20px; margin-bottom: 50px;}
-            main { padding: 30px 20px; text-align: center; }
+            nav { gap: 20px;}
+            .container-central { justify-content: center; padding: 30px 15px; margin-bottom: 50px;}
+            main { padding: 40px 25px; text-align: center; border-radius: 16px;}
             
-            h1 { font-size: 28px; }
+            h1 { font-size: 32px; }
             ul li { flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;}
             .lista-recursos li::before, .lista-passos li::before { margin-right: 0; margin-bottom: 8px; }
             .watermark { display: none; }
             
-            .secao-acesso { text-align: left; }
+            /* Ajuste responsivo para o wrapper de acesso */
+            .acesso-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; margin-top: 20px; }
+            .secao-acesso { text-align: left; padding: 15px; width: 100%; max-width: 300px; /* Limita a largura no mobile para não esticar muito */ }
         }
     </style>
 </head>
@@ -351,24 +386,26 @@
                 <li><span><span class="highlight">Histórico:</span> Mantenha o registro de todos os chamados abertos por você.</span></li>
             </ul>
 
-            <h2 class="animate-3">Acesse a Plataforma</h2>
-            
-            <div class="secao-acesso animate-4">
-                <div class="select-box">
-                    <label for="localidade">Selecione a sua base atual:</label>
-                    <select id="localidade" onchange="atualizarLinkGLPI()">
-                        <option value="" disabled selected>Escolha sua localidade...</option>
-                        <option value="campinas">Campinas</option>
-                        <option value="externo">São Paulo</option>
-                        <option value="externo">Manaus</option>
-                        <option value="externo">Belém</option>
-                        <option value="externo">Itu</option>
-                        <option value="externo">Espírito Santo</option>
-                    </select>
-                </div>
+            <div class="acesso-wrapper animate-3">
+                <h2 class="acesso-title">Acesse a Plataforma</h2>
+                
+                <div class="secao-acesso">
+                    <div class="select-box">
+                        <label for="localidade">Selecione a sua base atual:</label>
+                        <select id="localidade" onchange="atualizarLinkGLPI()">
+                            <option value="" disabled selected>Escolha sua localidade...</option>
+                            <option value="campinas">Campinas</option>
+                            <option value="externo">São Paulo</option>
+                            <option value="externo">Manaus</option>
+                            <option value="externo">Belém</option>
+                            <option value="externo">Itu</option>
+                            <option value="externo">Espírito Santo</option>
+                        </select>
+                    </div>
 
-                <div class="btn-container">
-                    <a href="#" id="btn-acesso" class="btn desativado">Acessar Plataforma GLPI</a>
+                    <div class="btn-container">
+                        <a href="#" id="btn-acesso" class="btn desativado">Acessar</a>
+                    </div>
                 </div>
             </div>
 
@@ -385,17 +422,14 @@
     </div>
 
     <script>
-        // LÓGICA DO NOVO DROPDOWN E BOTÃO
         function atualizarLinkGLPI() {
             const select = document.getElementById('localidade');
             const btn = document.getElementById('btn-acesso');
             const valor = select.value;
             
-            // Ativa o botão trocando a classe
             btn.classList.remove('desativado');
             btn.classList.add('ativo');
 
-            // Troca o link de acordo com a seleção
             if (valor === 'campinas') {
                 btn.href = "http://10.0.5.126/glpi";
             } else if (valor === 'externo') {
@@ -403,15 +437,14 @@
             }
         }
 
-        // LÓGICA DA MODAL
         const informacoes = {
             suporte: {
                 titulo: "Suporte Técnico",
                 texto: `
                     <p><strong>E-mail:</strong> gabriel.melo@ssonic.com.br</p>
                     <p><strong>Atendimento:</strong><br> Segunda a Sexta, das 08h às 18h</p>
-                    <hr style="border: 0; border-top: 1px solid #E2E8F0; margin: 20px 0;">
-                    <p style="font-size: 13px; color: #64748B;">Para incidentes comuns ou solicitações de rotina, utilize o botão principal de acesso ao GLPI.</p>
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin: 20px 0;">
+                    <p style="font-size: 14px; color: #cbd5e1;"><em>Para incidentes comuns ou solicitações de rotina, utilize o botão principal de acesso ao GLPI.</em></p>
                 `
             }
         };
