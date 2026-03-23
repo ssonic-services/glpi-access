@@ -22,7 +22,7 @@
         }
 
         /* =========================================
-           1. RESET E FUNDO GERAL (ZERO SCROLL DESKTOP)
+           1. RESET E FUNDO GERAL
            ========================================= */
         * { 
             margin: 0; 
@@ -60,25 +60,24 @@
             z-index: 0;
         }
 
-        /* Nova Marca D'água (Canto Inferior Esquerdo) */
         .watermark { 
             position: fixed; 
             bottom: clamp(20px, 5vh, 40px); 
             left: clamp(20px, 4vw, 50px); 
             width: clamp(150px, 15vw, 250px); 
-            opacity: 0.15; /* Sutilidade */
+            opacity: 0.15;
             z-index: 1; 
             pointer-events: none; 
-            mix-blend-mode: overlay; /* Faz a logo se misturar perfeitamente com o fundo azul escuro */
-            filter: brightness(100%); /* Garante que a logo fique branca para contrastar com o Azul Noite */
+            mix-blend-mode: overlay;
+            filter: brightness(100%);
         }
 
         /* =========================================
-           3. CABEÇALHO (AGORA SÓ COM OS LINKS)
+           3. CABEÇALHO
            ========================================= */
         header { 
             display: flex; 
-            justify-content: flex-end; /* Empurra o menu para a direita, já que a logo saiu */
+            justify-content: flex-end; 
             align-items: center; 
             padding: clamp(15px, 3vh, 30px) 60px; 
             background: transparent;
@@ -138,7 +137,7 @@
         }
 
         /* =========================================
-           5. TIPOGRAFIA COMPRESSÍVEL (VH E CLAMP)
+           5. TIPOGRAFIA 
            ========================================= */
         h1 { 
             font-size: clamp(26px, 4.5vh, 40px); 
@@ -153,22 +152,22 @@
             font-size: clamp(14px, 2vh, 16px); 
             line-height: 1.5; 
             color: var(--cinza); 
-            margin-bottom: clamp(15px, 3vh, 40px); 
+            margin-bottom: clamp(15px, 3vh, 30px); 
             font-weight: 400;
         }
         .subtitle strong { color: var(--azul-noite); font-weight: 700; }
         
         h2 { 
             font-size: clamp(14px, 2vh, 16px); 
-            margin-top: clamp(15px, 3vh, 35px); 
-            margin-bottom: clamp(10px, 2vh, 20px); 
+            margin-top: clamp(15px, 3vh, 30px); 
+            margin-bottom: clamp(10px, 2vh, 15px); 
             font-weight: 800; 
             color: var(--azul-dia); 
             text-transform: uppercase; 
             letter-spacing: 1.5px;
         }
         
-        ul { list-style-type: none; margin-bottom: clamp(15px, 3vh, 35px); }
+        ul { list-style-type: none; margin-bottom: clamp(15px, 3vh, 25px); }
         ul li { 
             font-size: clamp(13px, 1.8vh, 15px); 
             margin-bottom: clamp(8px, 1.5vh, 12px); 
@@ -183,14 +182,64 @@
         .lista-passos li::before { content: "→"; color: var(--azul-noite); font-size: 18px; margin-right: 15px; font-weight: bold;}
         
         .highlight { font-weight: 700; color: var(--azul-noite); }
-        .footer-text { margin-top: clamp(20px, 4vh, 40px); font-size: clamp(11px, 1.5vh, 13px); color: #94a3b8; font-weight: 400;}
+        .footer-text { margin-top: clamp(20px, 3vh, 30px); font-size: clamp(11px, 1.5vh, 13px); color: #94a3b8; font-weight: 400;}
 
         /* =========================================
-           6. BOTÃO FLAT (CALL TO ACTION)
+           6. CAIXA DE SELEÇÃO E BOTÃO
            ========================================= */
-        .btn-container { margin-top: clamp(15px, 3vh, 40px); }
+        .secao-acesso {
+            background-color: var(--cinza-claro);
+            padding: clamp(15px, 3vh, 20px);
+            border-radius: 8px;
+            margin-top: clamp(15px, 3vh, 25px);
+            border: 1px solid #E2E8F0;
+        }
+
+        .select-box {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .select-box label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--azul-noite);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .select-box select {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--texto-principal);
+            background-color: var(--branco);
+            border: 2px solid #CBD5E1;
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            appearance: none;
+            /* Ícone de setinha personalizado */
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23394F5A%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 12px auto;
+        }
+
+        .select-box select:focus {
+            border-color: var(--azul-dia);
+            box-shadow: 0 0 0 3px rgba(20, 177, 231, 0.1);
+        }
+
+        .btn-container { text-align: left; }
         .btn { 
             display: inline-block; 
+            width: 100%;
+            text-align: center;
             background: var(--azul-dia);
             color: var(--branco); 
             padding: clamp(12px, 2vh, 16px) clamp(25px, 4vw, 40px); 
@@ -202,12 +251,20 @@
             border-radius: 4px; 
             transition: all 0.2s ease; 
         }
-        .btn:hover { 
+        
+        .btn.ativo:hover { 
             background: var(--azul-noite); 
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(57, 79, 90, 0.2);
         }
-        .btn:active { transform: translateY(0); }
+
+        /* Estilo do botão desativado */
+        .btn.desativado {
+            opacity: 0.4;
+            pointer-events: none;
+            filter: grayscale(100%);
+            background: var(--cinza);
+        }
 
         /* =========================================
            7. MODAL DE SUPORTE
@@ -261,10 +318,9 @@
             h1 { font-size: 28px; }
             ul li { flex-direction: column; align-items: center; text-align: center; margin-bottom: 20px;}
             .lista-recursos li::before, .lista-passos li::before { margin-right: 0; margin-bottom: 8px; }
-            .btn { width: 100%; }
-
-            /* Oculta a marca d'água no mobile para não poluir o fundo */
             .watermark { display: none; }
+            
+            .secao-acesso { text-align: left; }
         }
     </style>
 </head>
@@ -295,15 +351,25 @@
                 <li><span><span class="highlight">Histórico:</span> Mantenha o registro de todos os chamados abertos por você.</span></li>
             </ul>
 
-            <h2 class="animate-3">Como Utilizar?</h2>
-            <ul class="lista-passos animate-3">
-                <li><span>Clique no botão abaixo para acessar o sistema.</span></li>
-                <li><span>Faça login utilizando suas credenciais corporativas padrão.</span></li>
-                <li><span>Preencha o formulário descrevendo o seu problema com detalhes.</span></li>
-            </ul>
+            <h2 class="animate-3">Acesse a Plataforma</h2>
+            
+            <div class="secao-acesso animate-4">
+                <div class="select-box">
+                    <label for="localidade">Selecione a sua base atual:</label>
+                    <select id="localidade" onchange="atualizarLinkGLPI()">
+                        <option value="" disabled selected>Escolha sua localidade...</option>
+                        <option value="campinas">Campinas</option>
+                        <option value="externo">São Paulo</option>
+                        <option value="externo">Manaus</option>
+                        <option value="externo">Belém</option>
+                        <option value="externo">Itu</option>
+                        <option value="externo">Espírito Santo</option>
+                    </select>
+                </div>
 
-            <div class="btn-container animate-4">
-                <a href="https://jonathan-aircraft-optical-submitted.trycloudflare.com/glpi" class="btn">Acessar Plataforma GLPI</a>
+                <div class="btn-container">
+                    <a href="#" id="btn-acesso" class="btn desativado">Acessar Plataforma GLPI</a>
+                </div>
             </div>
 
             <p class="footer-text animate-4">Em caso de urgências críticas, acione a modalidade de suporte via contato direto.</p>
@@ -319,6 +385,25 @@
     </div>
 
     <script>
+        // LÓGICA DO NOVO DROPDOWN E BOTÃO
+        function atualizarLinkGLPI() {
+            const select = document.getElementById('localidade');
+            const btn = document.getElementById('btn-acesso');
+            const valor = select.value;
+            
+            // Ativa o botão trocando a classe
+            btn.classList.remove('desativado');
+            btn.classList.add('ativo');
+
+            // Troca o link de acordo com a seleção
+            if (valor === 'campinas') {
+                btn.href = "http://10.0.5.126/glpi";
+            } else if (valor === 'externo') {
+                btn.href = "https://jonathan-aircraft-optical-submitted.trycloudflare.com/glpi";
+            }
+        }
+
+        // LÓGICA DA MODAL
         const informacoes = {
             suporte: {
                 titulo: "Suporte Técnico",
